@@ -12,10 +12,34 @@ const {
   listall,
   prefix,
   smd,
-  generateSticker,
   TelegraPh,
-  Config,
-} = require("../lib/");
+  Config
+} = require("../lib");
+async function generateSticker(_0x43a996, _0x5c979b, _0x116cae = {
+  pack: Config.packname,
+  author: Config.author
+}, _0x5b1252 = true) {
+  try {
+    const {
+      Sticker: _0x92981e,
+      createSticker: _0x1a1a97,
+      StickerTypes: _0x5f17c1
+    } = require("wa-sticker-formatter");
+    let _0x54c67c = new _0x92981e(_0x5c979b, {
+      ..._0x116cae
+    });
+    return await _0x43a996.bot.sendMessage(_0x43a996.chat, {
+      sticker: await _0x54c67c.toBuffer()
+    }, {
+      quoted: _0x43a996,
+      messageId: _0x43a996.bot.messageId()
+    });
+  } catch (_0x32ee71) {
+    if (_0x5b1252) {
+      await _0x43a996.error(_0x32ee71 + "\n\nfileName: generateSticker->s.js\n");
+    }
+  }
+}
 let mtypes = ["imageMessage", "videoMessage", "stickerMessage"];
 smd({
   cmdname: "sticker",
@@ -58,7 +82,7 @@ smd({
     }
     let _0x44d3dd = _0x3febcd.split("|");
     let _0x47c982 = _0x44d3dd[0]?.trim() !== "" ? _0x44d3dd[0] : _0x471740.pushName;
-    let _0x20f704 = _0x44d3dd[1] && _0x44d3dd[1] !== "" ? _0x44d3dd[1] : "QUEEN_ANITA-V2👸";
+    let _0x20f704 = _0x44d3dd[1] && _0x44d3dd[1] !== "" ? _0x44d3dd[1] : "𝐖𝐚𝐬𝐢 𝐦𝐝 𝐯2 ♥️";
     let _0x3ab776 = await _0xad98fb.download();
     let _0x3d0871 = {
       pack: _0x47c982,
@@ -165,6 +189,28 @@ smd({
     }
   } catch (_0x52baa5) {
     return await _0x37c100.error(_0x52baa5 + "\n\ncmdName: round\n", "*_Request Failed, Make sure You replied an image!_*");
+  }
+});
+smd({
+  cmdname: "wallpaper",
+  info: "To get Random Pics",
+  type: "anime",
+  filename: __filename
+}, async _0x5c07ae => {
+  try {
+    const _0x2b9570 = await (await fetch("https://api.unsplash.com/photos/random?client_id=72utkjatCBC-PDcx7-Kcvgod7-QOFAm2fXwEeW8b8cc"))?.json();
+    const _0x4cf39c = _0x2b9570?.urls?.regular || false;
+    if (_0x4cf39c) {
+      await _0x5c07ae.sendUi(_0x5c07ae.jid, {
+        caption: "*---Random Wallpapers Here---*"
+      }, {
+        quoted: _0x5c07ae
+      }, "image", _0x4cf39c);
+    } else {
+      await _0x5c07ae.send("*_Request Failed, Wallpaper not be fetched!_*");
+    }
+  } catch (_0x27f4a6) {
+    return await _0x5c07ae.error(_0x27f4a6 + "\n\ncmdName: wallpaper\n");
   }
 });
 smd({
@@ -290,7 +336,7 @@ smd({
     try {
       await _0xa1cfa2.send(_0x3dabe8, {
         packname: Config.packname,
-        author: "Suhail-Md"
+        author: "QUEEN_ANITA-V2"
       }, "sticker");
     } catch (_0x5763ea) {
       console.log("error in quotely : ", _0x5763ea);
@@ -310,14 +356,14 @@ smd({
   pattern: "fancy",
   desc: "Makes stylish/fancy given text",
   category: "converter",
-  use: "56 Suhail",
+  use: "56 QUEEN_ANITA-V2",
   filename: __filename
 }, async (_0x230c03, _0x3b568a) => {
   try {
-    let _0x365550 = "┏━━━━━━━━━━━━━━━━━━━━━━━━\n┃\t*💬QUEEN_ANITA-V2_FANCY_TEXT💬* \n┗━━━━━━━━━━━━━━━━━━━━━━━━\n\n " + (_0x3b568a ? "```🔢Reply the number you wants to select``` \n\n" : "```\t\t" + prefix + "fancy Suhail(For all text)\n\t\t" + prefix + "fancy 25 Suhail(For specific text)```\n\n");
+    let _0x365550 = "┏━━━━━━━━━━━━━━━━━━━━━━━━\n┃\t*𝐅𝐀𝐍𝐂𝐘-𝐓𝐄𝐗𝐓💬* \n┗━━━━━━━━━━━━━━━━━━━━━━━━\n\n " + (_0x3b568a ? "```🔢Reply the number you wants to select``` \n\n" : "```\t\t" + prefix + "fancy Asta(For all text)\n\t\t" + prefix + "fancy 25 Asta(For specific text)```\n\n");
     let _0x50c7d9 = parseInt(_0x3b568a);
     if (isNaN(_0x50c7d9)) {
-      let _0x4ca942 = _0x3b568a ? _0x3b568a : "Suhail";
+      let _0x4ca942 = _0x3b568a ? _0x3b568a : "Wasi";
       listall(_0x4ca942).forEach((_0x51f58f, _0x2be109) => {
         _0x365550 += "\n" + (_0x2be109 += 1) + " " + _0x51f58f + "\n";
       });
@@ -333,37 +379,6 @@ smd({
     return await _0x230c03.send(_0x564034, {}, "", _0x230c03);
   } catch (_0x8dd389) {
     return await _0x230c03.error(_0x8dd389 + "\n\ncmdName: fancy", _0x8dd389);
-  }
-});
-smd({
-  pattern: "styly",
-  desc: "Downloads wikimedia images.",
-  category: "converter",
-  filename: __filename,
-  use: "<text|search.>"
-}, async (_0xbd587f, _0x53c116) => {
-  try {
-    let _0x48c907 = _0x53c116.trim();
-    let _0x5cfa86 = "┏━━━━━━━━━━━━━━━━━━━━━━━━\n┃\t*💬QUEEN_ANITA-V2_FANCY_TEXT💬* \n┗━━━━━━━━━━━━━━━━━━━━━━━━\n\n " + (_0x48c907 ? "```🔢Reply the number you wants to select``` \n\n" : "```\t\t" + prefix + "styly Suhail(For all text)\n\t\t" + prefix + "styly 19 Suhail(For specific text)```\n\n");
-    let {
-      styletext: _0x515724
-    } = require("../lib/scraper");
-    let _0x2b12c6 = _0x48c907 ? parseInt(_0x48c907) : "";
-    _0x48c907 = _0x2b12c6 && !isNaN(_0x2b12c6) ? _0x48c907.slice(2) : _0x48c907;
-    let _0x3743f7 = (await _0x515724(_0x48c907 ? _0x48c907 : "Suhail")) || [];
-    if (!_0x3743f7 || !_0x3743f7[0]) {
-      return await _0xbd587f.send("*_No Results Found!_*");
-    }
-    let _0x591f72 = "";
-    if (isNaN(_0x2b12c6) || _0x2b12c6 > _0x3743f7.length || _0x2b12c6 < 0 || !_0x48c907) {
-      for (let _0x48f6ed = 0; _0x48f6ed < _0x3743f7.length; _0x48f6ed++) {
-        _0x591f72 += "\n" + _0x48f6ed + " " + _0x3743f7[_0x48f6ed].result + " " + (_0x48c907.length > 50 ? "\n\n" : "");
-      }
-      return await _0xbd587f.send(_0x5cfa86 + _0x591f72);
-    }
-    return await _0xbd587f.send(_0x3743f7[_0x2b12c6].result, {}, "", _0xbd587f);
-  } catch (_0x5fcd01) {
-    _0xbd587f.error(_0x5fcd01 + "\n\ncommand: styly", _0x5fcd01);
   }
 });
 smd({
@@ -395,7 +410,7 @@ smd({
   try {
     let _0xd51ec = _0x4cb7aa ? _0x4cb7aa : _0x4cfc4e.reply_text;
     if (!_0xd51ec) {
-      return _0x4cfc4e.reply("*_Example : " + prefix + "fliptext QUEEN_ANITA-V2!_*");
+      return _0x4cfc4e.reply("*_Example : " + prefix + "fliptext Queen_Anita-V2!_*");
     }
     let _0x5c7a34 = _0xd51ec.split("").reverse().join("");
     await _0x4cfc4e.reply("*「  Text Flipper Tool  」* \n*IGiven text :*\n" + _0xd51ec + "\n\n*Fliped text :*\n" + _0x5c7a34);
@@ -477,7 +492,7 @@ smd({
     let _0x531993 = _0x4974a3 ? _0x4974a3 : _0x3878b3.reply_text;
     let {
       data: _0x3d14f3
-    } = await axios.get("https://api.telegra.ph/createPage?access_token=d3b25feccb89e508a9114afb82aa421fe2a9712b963b387cc5ad71e58722&title=Suhail-Md+Bot&author_name=Suhail_Tech_Info&content=[%7B\"tag\":\"p\",\"children\":[\"" + _0x531993.replace(/ /g, "+") + "\"]%7D]&return_content=true");
+    } = await axios.get("https://api.telegra.ph/createPage?access_token=d3b25feccb89e508a9114afb82aa421fe2a9712b963b387cc5ad71e58722&title=Suhail-Md+Bot&author_name=Astro_Tech_Info&content=[%7B\"tag\":\"p\",\"children\":[\"" + _0x531993.replace(/ /g, "+") + "\"]%7D]&return_content=true");
     return _0x3878b3.reply("*Paste created on telegraph*\nName:-" + util.format(_0x3d14f3.result.title) + " \nUrl:- " + util.format(_0x3d14f3.result.url));
   } catch (_0x5d7e4a) {
     await _0x3878b3.error(_0x5d7e4a + "\n\ncommand: paste ", _0x5d7e4a, false);
@@ -572,19 +587,19 @@ smd({
   category: "converter",
   use: "<reply to any Video>",
   filename: __filename
-}, async _0x4ed07c => {
-  let _0xadff0d = _0x4ed07c.mtype === "videoMessage" ? _0x4ed07c : _0x4ed07c.reply_message;
-  if (!_0xadff0d) {
-    return _0x4ed07c.reply("*_Uhh Dear, Reply To Animated Sticker or Gif!!_*");
+}, async m => {
+  let asta_mp4 = m.mtype === "videoMessage" ? m : m.reply_message;
+  if (!asta_mp4) {
+    return m.reply("*_Uhh Dear, Reply To Animated Sticker or Gif!!_*");
   }
   const {
     webp2mp4File: _0x3e4a6e
   } = require("../lib");
-  let _0x4ab6cb = _0xadff0d?.mimetype || "";
-  if (_0xadff0d?.mtype != "videoMessage" && !/webp/.test(_0x4ab6cb)) {
-    return await _0x4ed07c.send("*Damn... Reply To An Animated Sticker or Gif *");
+  let _0x4ab6cb = asta_mp4?.mimetype || "";
+  if (asta_mp4?.mtype != "videoMessage" && !/webp/.test(_0x4ab6cb)) {
+    return await m.send("*Damn... Reply To An Animated Sticker or Gif *");
   }
-  let _0x1c3111 = await _0x4ed07c.bot.downloadAndSaveMediaMessage(_0xadff0d);
+  let _0x1c3111 = await m.bot.downloadAndSaveMediaMessage(asta_mp4);
   try {
     try {
       if (/webp/.test(_0x4ab6cb)) {
@@ -594,7 +609,7 @@ smd({
     } catch (_0x1b8bba) {
       console.log("error while converting sticker to mp4\n", _0x1b8bba);
     }
-    await _0x4ed07c.bot.sendMessage(_0x4ed07c.jid, {
+    await m.bot.sendMessage(m.jid, {
       video: {
         url: _0x1c3111
       },
@@ -604,7 +619,7 @@ smd({
       await fs.unlink(_0x1c3111);
     } catch (_0x399a5b) {}
   } catch (_0x3d8403) {
-    _0x4ed07c.error(_0x3d8403 + "\n\ncmdName: tomp4", _0x3d8403);
+    m.error(_0x3d8403 + "\n\ncmdName: tomp4", _0x3d8403);
   }
 });
 function splitTextIntoLines(_0x2e8ff3, _0x1ba8fb, _0x469f3c) {
@@ -647,7 +662,7 @@ smd({
       const _0xf38745 = require("fs");
       const _0x4d4dd9 = 300;
       const _0x3fed71 = 300;
-      const _0x5a2b18 = "./assets/ttp.png";
+      const _0x5a2b18 = "./temp/ttp.png";
       const _0x246894 = _0x238289(_0x4d4dd9, _0x3fed71);
       const _0x330082 = _0x246894.getContext("2d");
       _0x330082.clearRect(0, 0, _0x246894.width, _0x246894.height);
@@ -678,7 +693,7 @@ smd({
         return _0x3dac0f = false;
       });
     } else {
-      return _0x54e3dc.reply("*_Uhh Dear, provide text, ex .ttp 4 hii im suhail!!_*");
+      return _0x54e3dc.reply("*_Uhh Dear, provide text, ex .ttp 4 hii im anita!!_*");
     }
   } catch (_0x72e5d) {
     return await _0x54e3dc.error(_0x72e5d + "\n\ncmdName: ttp\n");
